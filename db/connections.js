@@ -9,11 +9,15 @@ const connection = mysql.createConnection({
 
   user: "root",
 
-  password: "",
+  password: "Mclane11-$",
   database: "employeeDB"
 });
 
 connection.connect(function(err){
   if (err) throw err;
   console.log("connect as id" + connection.threadId)
-})
+});
+
+connection.query = util.promisify(connection.query)
+
+module.exports = connections;

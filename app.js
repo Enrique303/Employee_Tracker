@@ -1,7 +1,5 @@
 const mysql = require("mysql");
 const inquirer = require('inquirer');
-const Employee = require('./employee');
-const Role = require('./role');
 
 function mainMenu() {
   inquirer
@@ -48,3 +46,5 @@ function mainMenu() {
       };
     })
 }
+
+mainMenu();
