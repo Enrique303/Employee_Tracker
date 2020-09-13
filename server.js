@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require('inquirer');
+const { printTable } = require('console-table-printer');
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -8,7 +9,7 @@ const connection = mysql.createConnection({
 
   user: "root",
 
-  password: "",
+  password: "Mclane11-$",
   database: "employeeDB"
 });
 
@@ -58,10 +59,29 @@ function mainMenu() {
       case "Update Employee Manager":
         updateEmployeeManager()
         break;
+      case "exit":
+        connection.end()
       default:
-        exit();
+        
       };
     })
-}
+};
+
+function viewAllEmployees() {
+  const query = "SELECT * FROM employee";
+  connection.query(query, function(err, res) {
+    if (err)throw err;
+    printTable(res);
+    mainMenu()
+  })
+};
+function viewByDepartment() {
+  const query = "SELECT * FROM department";
+  connection.query(query, function(err, res) {
+    if (err)throw err;
+    printTable(res);
+    mainMenu()
+  })
+};
 
 // mainMenu();
