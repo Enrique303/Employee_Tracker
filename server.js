@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require('inquirer');
-const { printTable } = require('console-table-printer');
+const  printTable  = require('console-table-printer');
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -60,9 +60,8 @@ function mainMenu() {
         updateEmployeeManager()
         break;
       case "exit":
-        connection.end()
-      default:
-        
+        connection.end();
+        break;        
       };
     })
 };
@@ -79,8 +78,22 @@ function viewByDepartment() {
   const query = "SELECT * FROM department";
   connection.query(query, function(err, res) {
     if (err)throw err;
-    printTable(res);
-    mainMenu()
+    inquirer.prompt(
+      {
+        type: "list",
+        name: "department",
+        message: "Which department would you like to view?",
+        choices: function(){
+          let deptArr = [];
+          for(let i = 0; i < res.length; i++){
+            deptArr.push(res[i].department_name + res [i].id);
+          }
+          return deptArr;
+        }
+      }
+    )
+  }).then(function(answer){
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, FROM employee JOIN")
   })
 };
 
