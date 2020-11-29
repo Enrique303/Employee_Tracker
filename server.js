@@ -85,11 +85,9 @@ function viewByDepartment() {
         }
       }
     )
-  }).then(function(answer){
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, FROM employee JOIN")
     printTable(res);
+    mainMenu()
   })
-  mainMenu();
 };
 const addEmployee = () => {
   connection.query("SELECT * FROM role_", (err, res) => {
